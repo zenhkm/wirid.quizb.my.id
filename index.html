@@ -238,7 +238,7 @@
         <p class="small">
           Untuk pertanyaan, masukan, atau dukungan, silakan hubungi:
           <br>Email: <a href="mailto:zenhkm@gmail.com">zenhkm@gmail.com</a>
-          <br>HP/WA: <a href="tel:085743399595">085743399595</a> &nbsp;|&nbsp; <a href="https://wa.me/085743399595" target="_blank" rel="noopener">WhatsApp</a>
+          <br>HP/WA: <a href="tel:085743399595">085743399595</a> &nbsp;|&nbsp; <a href="https://wa.me/6285743399595" target="_blank" rel="noopener">WhatsApp</a>
         </p>
       </section>
 
@@ -246,14 +246,14 @@
         <h3>Saran & Usulan</h3>
         <div class="iframe-card">
           <iframe
-            src="https://quizb.my.id/buku/saran.php"
+            src="saran.php"
             loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
+            referrerpolicy="strict-origin-when-cross-origin"
             sandbox="allow-forms allow-scripts allow-same-origin"
             title="Form Saran Mafatihul Akhyar">
           </iframe>
         </div>
-        <div class="iframe-note">Jika formulir tidak tampil, buka langsung: <a href="https://quizb.my.id/buku/saran.php" target="_blank" rel="noopener">quizb.my.id/buku/saran.php</a></div>
+        <div class="iframe-note">Jika formulir tidak tampil, buka langsung: <a href="saran.php" target="_blank" rel="noopener">Form Saran</a></div>
       </section>
     </div>
   </nav>
@@ -349,6 +349,17 @@
     });
 
     function showLoader(show){ if(loader) loader.hidden = !show; }
+    function readCachedData(maxAgeMs = Infinity){
+      try{
+        const cached = JSON.parse(localStorage.getItem('doa_cache') || 'null');
+        if(!cached || !Array.isArray(cached.data)) return [];
+        const age = Date.now() - Number(cached.ts || 0);
+        if(age > maxAgeMs) return [];
+        return cached.data.filter(d=>String(d?.aktif ?? 'TRUE').toUpperCase()!=='FALSE');
+      }catch{
+        return [];
+      }
+    }
     function parseCats(raw){ if(!raw) return []; return String(raw).split(',').map(s=>s.trim()).filter(Boolean); }
     function makeLink(id){ return `${location.origin}${location.pathname}?id=${encodeURIComponent(id)}`; }
     function copyFullText(text){
@@ -399,18 +410,22 @@
       showLoader(true);
       try{
         if(!force){
-          const cached = localStorage.getItem('doa_cache');
-          if(cached){
-            const {ts, data} = JSON.parse(cached);
-            if(Array.isArray(data) && (Date.now()-ts < 3600_000)){
-              DOA = data.filter(d=>String(d?.aktif ?? 'TRUE').toUpperCase()!=='FALSE');
-              rebuildTabs(); render(); openFromQuery();
-              return;
-            }
+          const cachedData = readCachedData(3600_000);
+          if(cachedData.length){
+            DOA = cachedData;
+            rebuildTabs(); render(); openFromQuery();
+            return;
           }
         }
-        const url = new URL(API_URL); url.searchParams.set('action','list');
-        const r = await fetch(url.toString(), {mode:'cors', cache:'no-store'});
+
+        const url = new URL(API_URL);
+        url.searchParams.set('action','list');
+
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 12000);
+        const r = await fetch(url.toString(), {mode:'cors', cache:'no-store', signal: controller.signal});
+        clearTimeout(timeout);
+
         if(!r.ok) throw new Error('Gagal memuat');
         const json = await r.json();
         const arr = Array.isArray(json?.data) ? json.data
@@ -421,6 +436,15 @@
         rebuildTabs(); render(); openFromQuery();
       }catch(e){
         console.error(e);
+
+        const staleData = readCachedData();
+        if(staleData.length){
+          DOA = staleData;
+          rebuildTabs(); render(); openFromQuery();
+          toast('Koneksi bermasalah. Menampilkan data terakhir yang tersimpan.');
+          return;
+        }
+
         list.innerHTML = '';
         const err = document.createElement('div');
         err.className='card';
@@ -637,26 +661,25 @@
     document.getElementById('year').textContent = new Date().getFullYear();
     fetchData();
 
-    /* Anti-reload */
+    /* Hindari reload tidak sengaja tanpa mengganggu saat keluar halaman */
     (function(){
-      const BLOCK = true;
       function onKey(e){
-        if(!BLOCK) return;
         const k = (e.key||'').toLowerCase();
         if (e.key === 'F5' || ((e.ctrlKey||e.metaKey) && k === 'r')) {
           e.preventDefault();
-          try{ if(typeof toast==='function') toast('Reload dinonaktifkan'); }catch{}
+          try{ if(typeof toast==='function') toast('Gunakan tombol aplikasi bila perlu memuat ulang.'); }catch{}
         }
       }
       window.addEventListener('keydown', onKey, {capture:true});
-      window.addEventListener('beforeunload', (e)=>{ if(!BLOCK) return; e.preventDefault(); e.returnValue=''; });
     })();
   </script>
 
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js?v=3', { scope: '/' })
-        .catch(console.error);
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js?v=4', { scope: './' })
+          .catch(console.error);
+      });
     }
   </script>
 </body>

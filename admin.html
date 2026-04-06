@@ -1,27 +1,78 @@
-<!doctype html><meta charset="utf-8">
-<title>Admin Doa</title>
-<form id="f" style="display:grid;gap:8px;max-width:480px">
-  <input name="id" placeholder="id unik" required>
-  <input name="judul" placeholder="Judul" required>
-  <input name="kategori" placeholder="Kategori (opsional)">
-  <textarea name="arab" placeholder="Teks Arab" required></textarea>
-  <input name="key" placeholder="API KEY" required>
-  <button>Tambah</button>
-  <div id="msg"></div>
-</form>
-<script>
-const API = 'PASTE_WEB_APP_URL_HERE';
-document.getElementById('f').onsubmit = async (e)=>{
-  e.preventDefault();
-  const fd = new FormData(e.target);
-  const payload = Object.fromEntries(fd.entries());
-  const r = await fetch(API, {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify(payload)
-  });
-  const j = await r.json();
-  document.getElementById('msg').textContent = j.ok?'Berhasil ditambah':'Gagal: '+j.error;
-  if(j.ok) e.target.reset();
-};
-</script>
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Doa</title>
+  <style>
+    :root{--bg:#0b1020;--panel:#0f172a;--card:#111827;--text:#e2e8f0;--muted:#94a3b8;--accent:#22c55e;--line:#ffffff1f}
+    *{box-sizing:border-box}
+    body{margin:0;padding:24px;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    .card{max-width:720px;margin:auto;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 10px 30px #00000030}
+    h1{margin:0 0 6px;font-size:22px}
+    p{margin:0 0 14px;color:var(--muted)}
+    form{display:grid;gap:10px}
+    input,textarea,button{font:inherit}
+    input,textarea{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text)}
+    textarea{min-height:180px;resize:vertical}
+    button{cursor:pointer;border:1px solid #22c55e55;background:#16a34a2b;color:var(--text);padding:10px 14px;border-radius:10px;font-weight:700}
+    button:disabled{opacity:.7;cursor:wait}
+    #msg{min-height:24px;font-size:14px}
+    #msg.ok{color:#86efac}
+    #msg.err{color:#fca5a5}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Admin Doa</h1>
+    <p>Gunakan halaman ini untuk menambah doa baru ke aplikasi.</p>
+    <form id="f">
+      <input name="id" placeholder="id unik" required>
+      <input name="judul" placeholder="Judul" required>
+      <input name="kategori" placeholder="Kategori (opsional, pisahkan dengan koma)">
+      <textarea name="arab" placeholder="Teks doa / wirid" required></textarea>
+      <input name="key" placeholder="API KEY" required>
+      <button type="submit">Tambah</button>
+      <div id="msg" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <script>
+    const API = 'https://script.google.com/macros/s/AKfycbxl6VFT-C4sPe3V3wnfLOeuad55-jvCk08w4mAfMPrdIwogUNn5T-XL4ChZbBtEbxeKTQ/exec';
+
+    document.getElementById('f').onsubmit = async (e)=>{
+      e.preventDefault();
+      const form = e.target;
+      const msg = document.getElementById('msg');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const fd = new FormData(form);
+      const payload = Object.fromEntries(fd.entries());
+      payload.action = 'add';
+
+      msg.className = '';
+      msg.textContent = 'Menyimpan data...';
+      submitBtn.disabled = true;
+
+      try {
+        const r = await fetch(API, {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify(payload)
+        });
+
+        const j = await r.json();
+        if(!r.ok || !j.ok) throw new Error(j.error || 'Permintaan gagal');
+
+        msg.className = 'ok';
+        msg.textContent = 'Berhasil ditambah.';
+        form.reset();
+      } catch (err) {
+        msg.className = 'err';
+        msg.textContent = 'Gagal: ' + (err.message || 'Terjadi kesalahan');
+      } finally {
+        submitBtn.disabled = false;
+      }
+    };
+  </script>
+</body>
+</html>

@@ -6,8 +6,8 @@
  * - Siap di-iframe dari ppma.infinityfree.me
  *******************************/
 
-// (Opsional) izinkan di-embed dari domain berikut:
-header("Content-Security-Policy: frame-ancestors 'self' https://ppma.infinityfree.me http://ppma.infinityfree.me");
+// Izinkan form di-embed dari domain aplikasi yang digunakan.
+header("Content-Security-Policy: frame-ancestors 'self' https://wirid.quizb.my.id https://quizb.my.id https://ppma.infinityfree.me http://ppma.infinityfree.me http://localhost:* http://127.0.0.1:*");
 
 // Matikan error ke output user (biar rapi di iframe)
 ini_set('display_errors', '0');
@@ -42,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($err)) {
 
   if ($nama === '' || $pesan === '') {
     $err = 'Nama dan pesan wajib diisi.';
+  } elseif ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $err = 'Format email tidak valid.';
   } else {
     try {
       $ip  = $_SERVER['REMOTE_ADDR'] ?? null;
