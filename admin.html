@@ -1,0 +1,27 @@
+<!doctype html><meta charset="utf-8">
+<title>Admin Doa</title>
+<form id="f" style="display:grid;gap:8px;max-width:480px">
+  <input name="id" placeholder="id unik" required>
+  <input name="judul" placeholder="Judul" required>
+  <input name="kategori" placeholder="Kategori (opsional)">
+  <textarea name="arab" placeholder="Teks Arab" required></textarea>
+  <input name="key" placeholder="API KEY" required>
+  <button>Tambah</button>
+  <div id="msg"></div>
+</form>
+<script>
+const API = 'PASTE_WEB_APP_URL_HERE';
+document.getElementById('f').onsubmit = async (e)=>{
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const payload = Object.fromEntries(fd.entries());
+  const r = await fetch(API, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  });
+  const j = await r.json();
+  document.getElementById('msg').textContent = j.ok?'Berhasil ditambah':'Gagal: '+j.error;
+  if(j.ok) e.target.reset();
+};
+</script>
