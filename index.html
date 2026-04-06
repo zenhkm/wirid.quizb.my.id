@@ -101,7 +101,7 @@
     .drawer header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #ffffff22}
     .drawer-scroll{flex:1;overflow:auto}
     .menu-list{display:grid;gap:8px;padding:10px}
-    .menu-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid #ffffff1a;background:#ffffff08;cursor:pointer;font-size:14px}
+    .menu-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid #ffffff1a;background:#ffffff08;cursor:pointer;font-size:14px;text-decoration:none;color:var(--text)}
     .drawer section{padding:0 10px 14px}
     .drawer h3{margin:6px 0 4px;font-size:15px}
     .small{font-size:13px}
@@ -188,72 +188,16 @@
 
     <div class="drawer-scroll">
       <div class="menu-list">
-        <div class="menu-item" data-target="kebijakan">📜 Kebijakan Privasi</div>
-        <div class="menu-item" data-target="tentang">ℹ️ Tentang Aplikasi</div>
+        <a class="menu-item" href="privasi.html">📜 Kebijakan Privasi</a>
+        <a class="menu-item" href="tentang.html">ℹ️ Tentang Aplikasi</a>
         <div class="menu-item" id="clearAllPos">🧽 Bersihkan semua posisi</div>
-        <div class="menu-item" data-target="contact">✉️ Contact</div>
-        <div class="menu-item" data-target="saran">💡 Saran & Usulan</div>
+        <a class="menu-item" href="contact.html">✉️ Contact</a>
+        <a class="menu-item" href="saran.html">💡 Saran & Usulan</a>
       </div>
 
-      <section id="panel-kebijakan" hidden>
-        <h3>Kebijakan Privasi</h3>
-        <p class="small">
-          Aplikasi ini dirancang untuk bekerja <b>offline-first</b>. Seluruh preferensi seperti tema, bookmark, dan
-          posisi terakhir membaca disimpan <b>lokal</b> di perangkat Anda melalui LocalStorage. Kami tidak mengumpulkan
-          data pribadi, tidak menggunakan analitik, dan tidak menayangkan iklan/pelacak pihak ketiga.
-        </p>
-        <p class="small">
-          Saat memuat awal atau penyegaran konten, aplikasi mengakses sumber data doa (Google Apps Script) secara
-          <b>read-only</b> tanpa menyertakan data pribadi. Konten dapat di-cache agar tetap nyaman saat koneksi lambat.
-        </p>
-        <p class="small">
-          Penyedia hosting/jaringan mungkin memiliki log akses standar (IP, waktu akses) yang dikelola oleh penyedia
-          tersebut dan di luar kendali aplikasi. Informasi ini tidak dipakai untuk melacak perilaku pengguna.
-        </p>
-        <p class="small">
-          Dengan menggunakan aplikasi ini, Anda menyetujui kebijakan sederhana ini. Perubahan kebijakan mungkin terjadi
-          untuk peningkatan keamanan & kenyamanan.
-        </p>
-      </section>
-
-      <section id="panel-tentang" hidden>
-        <h3>Tentang</h3>
-        <p class="small">
-          <b>Mafatihul Akhyar</b> adalah aplikasi ringkas untuk membaca wirid dan doa Ponpes Matholiul Anwar. Fitur
-          utamanya: pencarian cepat, kategori, penanda (bookmark), dan <em>Lanjutkan</em> untuk kembali ke baris
-          terakhir yang Anda baca.
-        </p>
-        <p class="small">
-          Kami mengutamakan kenyamanan: tipografi Arab yang jelas, kontrol ukuran huruf (A−/A+), tema gelap/terang,
-          serta antarmuka sederhana. Desain <b>offline-first</b> memastikan bacaan tetap bisa diakses saat koneksi
-          lambat atau tidak stabil.
-        </p>
-        <p class="small">
-          Saran dan masukan Anda sangat berarti untuk peningkatan berkelanjutan demi kemanfaatan bersama.
-        </p>
-      </section>
-
-      <section id="panel-contact" hidden>
-        <h3>Contact</h3>
-        <p class="small">
-          Untuk pertanyaan, masukan, atau dukungan, silakan hubungi:
-          <br>Email: <a href="mailto:zenhkm@gmail.com">zenhkm@gmail.com</a>
-          <br>HP/WA: <a href="tel:085743399595">085743399595</a> &nbsp;|&nbsp; <a href="https://wa.me/6285743399595" target="_blank" rel="noopener">WhatsApp</a>
-        </p>
-      </section>
-
-      <section id="panel-saran" hidden>
-        <h3>Saran & Usulan</h3>
-        <div class="iframe-card">
-          <iframe
-            src="saran.php"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            sandbox="allow-forms allow-scripts allow-same-origin"
-            title="Form Saran Mafatihul Akhyar">
-          </iframe>
-        </div>
-        <div class="iframe-note">Jika formulir tidak tampil, buka langsung: <a href="saran.php" target="_blank" rel="noopener">Form Saran</a></div>
+      <section>
+        <h3>Halaman Informasi</h3>
+        <p class="small">Semua menu informasi sekarang dibuka di halaman tersendiri agar lebih rapi dan mudah dibagikan lewat link.</p>
       </section>
     </div>
   </nav>
@@ -546,18 +490,9 @@
     document.getElementById('hamburger').onclick=()=>{drawer.classList.add('open');shade.classList.add('show');};
     document.getElementById('closeDrawer').onclick=()=>{drawer.classList.remove('open');shade.classList.remove('show');};
     shade.onclick=()=>{drawer.classList.remove('open');shade.classList.remove('show');};
-    const map={
-      kebijakan:document.getElementById('panel-kebijakan'),
-      tentang:document.getElementById('panel-tentang'),
-      contact:document.getElementById('panel-contact'),
-      saran:document.getElementById('panel-saran')
-    };
-    function hideAll(){ Object.values(map).forEach(el=>el.hidden=true); }
-    document.querySelectorAll('.menu-item').forEach(item=>{
-      item.addEventListener('click',()=>{ hideAll(); const key=item.dataset.target; if(map[key]) map[key].hidden=false; });
-    });
-
     document.getElementById('clearAllPos')?.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      shade.classList.remove('show');
       Object.keys(localStorage).forEach(k => { if (k.startsWith('pos_')) localStorage.removeItem(k); });
       document.querySelectorAll('.resume-badge').forEach(b => b.setAttribute('hidden',''));
       toast('Semua posisi terakhir dihapus 🧽');
@@ -677,7 +612,7 @@
   <script>
     if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=4', { scope: './' })
+        navigator.serviceWorker.register('./sw.js?v=6', { scope: './' })
           .catch(console.error);
       });
     }

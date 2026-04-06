@@ -5,6 +5,10 @@ const PRECACHE_URLS = [
   './',
   './index.html',
   './admin.html',
+  './privasi.html',
+  './tentang.html',
+  './contact.html',
+  './saran.html',
   './offline.html',
   './logo.png'
 ];
