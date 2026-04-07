@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($err)) {
       margin:0;
       background:radial-gradient(circle at top,#17315c 0%,transparent 28%),var(--bg);
       color:var(--text);
-      font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",sans-serif;
+      font:16px/1.68 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",sans-serif;
     }
 
     .wrap{max-width:760px;margin:0 auto;padding:12px}
@@ -101,8 +101,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($err)) {
       box-shadow:0 8px 24px #00000028;
     }
 
-    h1{margin:0 0 10px;font-size:clamp(20px,5vw,28px);line-height:1.2}
-    p.small{font-size:13px;color:var(--muted);margin:8px 0 12px}
+    h1{margin:0 0 10px;font-size:clamp(22px,5.4vw,30px);line-height:1.2}
+    p.small{font-size:14px;color:var(--muted);margin:8px 0 12px}
 
     form.form{display:grid;gap:12px;margin-top:10px}
     .row{display:grid;gap:12px}
