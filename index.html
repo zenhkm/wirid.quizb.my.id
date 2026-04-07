@@ -60,13 +60,17 @@
     .iconbtn{min-height:36px;display:grid;place-items:center;border-radius:11px;border:1px solid #ffffff1a;background:#ffffff0f;flex-shrink:0;padding:0 11px}
 
     /* Kategori + Bookmark bar */
-    .tabs,.bmbar{display:flex;flex-wrap:nowrap;gap:8px;padding:8px 2px 4px;justify-content:flex-start;overflow:auto;scrollbar-width:none}
+    .tabs,.bmbar{
+      display:flex;flex-wrap:wrap;gap:8px;padding:8px 2px 4px;
+      justify-content:center;align-items:center;overflow:visible;scrollbar-width:none;
+      max-width:860px;margin:0 auto;
+    }
     .tabs::-webkit-scrollbar,.bmbar::-webkit-scrollbar{display:none}
     .chip{padding:7px 11px;border-radius:999px;border:1px solid #ffffff1a;background:#ffffff08;color:var(--text);cursor:pointer;font-size:13px;white-space:nowrap;flex:0 0 auto}
     .chip.active{outline:2px solid var(--ring);background:#14b8a61a;border-color:#22c55e33}
-    .bmbar{margin:2px 0 6px}
+    .bmbar{margin:2px auto 6px}
     .bmbar .bm{padding:7px 11px;border-radius:999px;border:1px solid #ffffff1a;background:#ffffff0f;cursor:pointer;font-size:14px;white-space:nowrap;flex:0 0 auto}
-    .bmbar .empty{opacity:.7;font-size:11px;padding:4px 2px}
+    .bmbar .empty{opacity:.75;font-size:12px;padding:4px 2px;text-align:center;width:100%}
 
     /* Layout utama */
     .wrap{max-width:860px;margin:auto;padding:12px 12px 22px}
@@ -144,6 +148,13 @@
       .title{padding:0 74px;font-size:22px}
       .search{position:relative;left:auto;top:auto;order:3;width:100%;max-width:none}
       .right{top:0;right:0}
+      .tabs,.bmbar{
+        flex-wrap:nowrap;
+        justify-content:flex-start;
+        overflow:auto;
+        margin:0;
+        max-width:none;
+      }
     }
 
     @media (max-width:520px){
@@ -625,7 +636,7 @@
   <script>
     if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=8', { scope: './' })
+        navigator.serviceWorker.register('./sw.js?v=9', { scope: './' })
           .catch(console.error);
       });
     }
