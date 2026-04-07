@@ -73,73 +73,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($err)) {
   <title>Form Saran</title>
   <meta name="theme-color" content="#0f172a" />
   <style>
-    /* ====== SKEMA WARNA (selaras Mafatih, satu tema) ====== */
     :root{
-      --bg:#0f172a;         /* panel/navy gelap */
-      --text:#e2e8f0;       /* teks terang */
-      --muted:#94a3b8;      /* teks sekunder */
-      --card:#111827;       /* kartu/input */
-      --line:#ffffff22;     /* garis/border halus */
-      --accent:#22c55e;     /* hijau aksen */
+      --bg:#0f172a;
+      --text:#e2e8f0;
+      --muted:#94a3b8;
+      --card:#111827;
+      --line:#ffffff22;
+      --accent:#22c55e;
       --accent-soft:#22c55e33;
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;background:var(--bg);color:var(--text);
+      margin:0;
+      background:radial-gradient(circle at top,#17315c 0%,transparent 28%),var(--bg);
+      color:var(--text);
       font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",sans-serif;
     }
 
-    .wrap{
-      max-width:720px;margin:0 auto;padding:16px;
-    }
-
+    .wrap{max-width:760px;margin:0 auto;padding:12px}
     .card{
-      background:var(--card);
+      background:rgba(17,24,39,.96);
       border:1px solid var(--line);
-      border-radius:14px;
+      border-radius:18px;
       padding:16px;
-      box-shadow:0 6px 20px #00000020;
+      box-shadow:0 8px 24px #00000028;
     }
 
-    h1{
-      margin:0 0 12px;font-size:18px;line-height:1.3
-    }
-    p.small{font-size:13px;color:var(--muted);margin:8px 0}
+    h1{margin:0 0 10px;font-size:clamp(20px,5vw,28px);line-height:1.2}
+    p.small{font-size:13px;color:var(--muted);margin:8px 0 12px}
 
-    form.form{display:grid;gap:12px;margin-top:8px}
+    form.form{display:grid;gap:12px;margin-top:10px}
     .row{display:grid;gap:12px}
-    @media(min-width:560px){ .row{grid-template-columns:1fr 1fr} }
+    @media(min-width:640px){ .row{grid-template-columns:1fr 1fr} }
 
-    label{display:block;font-size:13px;margin:0 0 6px;color:var(--muted)}
+    label{display:grid;gap:6px;font-size:13px;color:var(--muted)}
     .input, textarea{
       width:100%;
-      background:var(--bg); /* sedikit lebih gelap supaya beda dengan card */
+      background:var(--bg);
       border:1px solid var(--line);
       color:var(--text);
-      border-radius:10px;
-      padding:10px 12px;
-      outline: none;
+      border-radius:12px;
+      padding:12px 13px;
+      outline:none;
     }
     .input:focus, textarea:focus{ box-shadow:0 0 0 3px var(--accent-soft); border-color:var(--accent-soft); }
-    textarea{ min-height:140px; resize:vertical; }
+    textarea{ min-height:160px; resize:vertical; }
 
-    .actions{display:flex;gap:10px;justify-content:flex-end}
+    .actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
     .btn{
       cursor:pointer;
       border:1px solid var(--line);
       background:#ffffff10;
       color:var(--text);
-      padding:8px 14px;
-      border-radius:10px;
-      font-weight:600;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:700;
+      min-height:44px;
     }
     .btn.primary{ border-color:var(--accent-soft); background:#16a34a33; }
     .btn:disabled{ opacity:.6; cursor:not-allowed }
 
     .alert{
-      margin-bottom:12px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);
+      margin-bottom:12px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);
       background:#ffffff08;
     }
     .alert.ok{ border-color:var(--accent-soft); background:#16a34a22; }
@@ -147,6 +144,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($err)) {
 
     .footer-note{margin-top:10px;text-align:center;font-size:12px;color:var(--muted)}
     .brand{color:var(--accent);font-weight:700}
+
+    @media (max-width:560px){
+      .wrap{padding:10px}
+      .card{padding:14px}
+      .actions .btn{width:100%}
+    }
   </style>
 </head>
 <body>

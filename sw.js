@@ -1,5 +1,5 @@
-const APP_CACHE = 'mafatihul-akhyar-app-v6';
-const RUNTIME = 'mafatihul-akhyar-rt-v6';
+const APP_CACHE = 'mafatihul-akhyar-app-v7';
+const RUNTIME = 'mafatihul-akhyar-rt-v7';
 
 const PRECACHE_URLS = [
   './',
