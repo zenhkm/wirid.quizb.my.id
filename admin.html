@@ -1,118 +1,447 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="id">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Doa</title>
+  <title>Admin – Mafatihul Akhyar</title>
   <link rel="icon" href="logo.png" type="image/png">
   <style>
-    :root{--bg:#0b1020;--panel:#0f172a;--card:#111827;--text:#e2e8f0;--muted:#94a3b8;--accent:#22c55e;--line:#ffffff1f}
+    :root{
+      --bg:#0b1020;--panel:#0f172a;--card:#111827;--text:#e2e8f0;
+      --muted:#94a3b8;--accent:#22c55e;--danger:#ef4444;--line:#ffffff1f;
+    }
     *{box-sizing:border-box}
     body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#17315c 0%,transparent 25%),var(--bg);color:var(--text);font:16px/1.68 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-    .wrap{max-width:860px;margin:auto;padding:14px 12px 24px}
-    .hero,.card{border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px #00000030}
-    .hero{padding:16px;background:linear-gradient(135deg,rgba(34,197,94,.16),rgba(15,23,42,.96));margin-bottom:14px}
-    .card{background:rgba(17,24,39,.95);padding:16px}
-    .brand{display:flex;align-items:center;gap:12px}.brand img{width:50px;height:50px;border-radius:14px;object-fit:contain;background:#ffffff12}
+    .wrap{max-width:860px;margin:auto;padding:14px 12px 40px}
+    .hero{border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px #00000030;padding:16px;background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(15,23,42,.96));margin-bottom:14px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:50px;height:50px;border-radius:14px;object-fit:contain;background:#ffffff12}
     .eyebrow{color:#86efac;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
     h1{margin:4px 0 0;font-size:clamp(22px,5vw,30px);line-height:1.15}
-    p{margin:8px 0 0;color:var(--muted)}
+    .desc{margin:8px 0 0;color:var(--muted);font-size:15px}
     .nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .nav a{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:9px 12px;border-radius:12px;border:1px solid #22c55e44;background:#ffffff0c;color:var(--text);text-decoration:none;font-weight:700}
+    .nav a{display:inline-flex;align-items:center;min-height:40px;padding:8px 14px;border-radius:12px;border:1px solid #22c55e44;background:#ffffff0c;color:var(--text);text-decoration:none;font-weight:700;font-size:14px}
+    .nav a:hover{background:#22c55e18}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px #00000020;padding:18px;margin-bottom:14px}
+    .card h2{margin:0 0 14px;font-size:17px;color:#86efac}
     form{display:grid;gap:12px}
-    .field{display:grid;gap:6px}
-    .field span{font-size:13px;color:var(--muted)}
-    input,textarea,button{font:inherit}
-    input,textarea{width:100%;padding:12px 13px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--text)}
-    textarea{min-height:200px;resize:vertical}
-    button{cursor:pointer;border:1px solid #22c55e55;background:#16a34a2b;color:var(--text);padding:12px 14px;border-radius:12px;font-weight:700;min-height:46px}
-    button:disabled{opacity:.7;cursor:wait}
-    #msg{min-height:24px;font-size:14px}
-    #msg.ok{color:#86efac}
-    #msg.err{color:#fca5a5}
-    @media (max-width:560px){.wrap{padding:12px 10px 20px}.brand{align-items:flex-start}.nav a{flex:1 1 100%}.card,.hero{padding:14px}}
+    .field{display:grid;gap:5px}
+    .field label{font-size:13px;color:var(--muted)}
+    input,textarea{width:100%;padding:11px 13px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--text);font:inherit;outline:none;transition:border-color .2s}
+    input:focus,textarea:focus{border-color:#22c55e66}
+    textarea{min-height:180px;resize:vertical}
+    .arabic-input{font-family:"Noto Naskh Arabic","Amiri","Scheherazade New","Traditional Arabic","Tahoma",serif;font-size:20px;direction:rtl;text-align:right;line-height:2}
+    .btn-add{cursor:pointer;border:1px solid #22c55e66;background:#16a34a2b;color:var(--text);padding:12px 18px;border-radius:12px;font:700 16px/1 inherit;min-height:46px;transition:background .2s}
+    .btn-add:hover{background:#16a34a44}
+    .btn-add:disabled{opacity:.6;cursor:wait}
+    #addMsg{min-height:22px;font-size:14px;margin-top:4px}
+    #addMsg.ok{color:#86efac}
+    #addMsg.err{color:#fca5a5}
+    .list-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+    .list-header h2{margin:0;font-size:17px;color:#86efac}
+    .count-badge{background:#22c55e22;color:var(--accent);border:1px solid #22c55e44;border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700}
+    .search-box{display:flex;align-items:center;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:7px 10px;margin-bottom:12px}
+    .search-box svg{width:14px;height:14px;flex-shrink:0;opacity:.6}
+    .search-box input{all:unset;color:var(--text);font-size:14px;flex:1;min-width:0}
+    .entry-list{display:grid;gap:8px}
+    .entry{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03);transition:background .2s}
+    .entry:hover{background:rgba(255,255,255,.06)}
+    .entry-title{font-weight:700;font-size:15px;margin-bottom:3px;overflow-wrap:anywhere}
+    .entry-meta{font-size:12px;color:var(--muted)}
+    .entry-meta .cat{display:inline-block;background:#22c55e18;border:1px solid #22c55e33;border-radius:999px;padding:1px 7px;margin-right:4px;margin-top:3px}
+    .btn-del{cursor:pointer;border:1px solid #ef444455;background:#ef444418;color:#fca5a5;padding:7px 12px;border-radius:10px;font-size:13px;font-weight:700;white-space:nowrap;transition:background .2s;min-height:36px}
+    .btn-del:hover{background:#ef44442a}
+    .btn-del:disabled{opacity:.5;cursor:wait}
+    .btn-edit{cursor:pointer;border:1px solid #3b82f655;background:#3b82f618;color:#93c5fd;padding:7px 12px;border-radius:10px;font-size:13px;font-weight:700;white-space:nowrap;transition:background .2s;min-height:36px}
+    .btn-edit:hover{background:#3b82f62a}
+    .entry-actions{display:flex;gap:6px;flex-shrink:0}
+    /* Modal Edit */
+    .modal-shade{position:fixed;inset:0;background:#000b;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s}
+    .modal-shade.show{opacity:1;pointer-events:auto}
+    .modal-box{position:fixed;inset:0;z-index:110;display:flex;align-items:center;justify-content:center;padding:12px;pointer-events:none}
+    .modal-inner{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 20px 60px #00000060;width:100%;max-width:600px;max-height:92vh;display:flex;flex-direction:column;transform:translateY(12px);opacity:0;transition:.2s;pointer-events:none}
+    .modal-shade.show ~ .modal-box .modal-inner{transform:none;opacity:1;pointer-events:auto}
+    .modal-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line)}
+    .modal-head h3{margin:0;font-size:16px;color:#86efac}
+    .modal-close{cursor:pointer;background:none;border:1px solid var(--line);color:var(--text);border-radius:8px;padding:4px 10px;font-size:18px;line-height:1}
+    .modal-body{overflow:auto;padding:16px;display:grid;gap:12px}
+    .modal-foot{padding:12px 16px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end}
+    .btn-save{cursor:pointer;border:1px solid #22c55e66;background:#16a34a2b;color:var(--text);padding:10px 18px;border-radius:12px;font:700 15px/1 inherit;transition:background .2s}
+    .btn-save:hover{background:#16a34a44}
+    .btn-save:disabled{opacity:.6;cursor:wait}
+    .btn-cancel{cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--muted);padding:10px 14px;border-radius:12px;font:15px/1 inherit}
+    #editMsg{font-size:13px;min-height:18px}
+    #editMsg.ok{color:#86efac}
+    #editMsg.err{color:#fca5a5}
+    /* Tag picker kategori */
+    .kat-wrap{border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden}
+    .kat-chips{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px 6px}
+    .kat-chips:empty{display:none}
+    .kat-chip{cursor:pointer;padding:4px 11px;border-radius:999px;border:1px solid #ffffff1a;background:#ffffff08;font-size:13px;color:var(--muted);transition:all .15s;user-select:none;line-height:1.5}
+    .kat-chip:hover{border-color:#22c55e55;color:var(--text)}
+    .kat-chip.on{background:#22c55e22;border-color:#22c55e66;color:var(--accent);font-weight:600}
+    .kat-input{width:100%;padding:9px 12px;border:none;border-top:1px solid var(--line);background:transparent;color:var(--text);font:inherit;outline:none;font-size:14px}
+    .kat-hint{font-size:11px;color:var(--muted);padding:0 12px 8px}
+    .empty-state{text-align:center;padding:28px;color:var(--muted);font-size:15px}
+    .spinner-wrap{display:flex;justify-content:center;padding:20px}
+    .spinner{width:28px;height:28px;border:3px solid var(--muted);border-left-color:transparent;border-radius:50%;animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(20px);background:#0f172a;color:#e2e8f0;border:1px solid #ffffff22;padding:10px 16px;border-radius:12px;box-shadow:0 10px 30px #0008;opacity:0;z-index:200;transition:opacity .2s,transform .2s;max-width:88vw;text-align:center;font-size:15px;pointer-events:none}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    @media(max-width:520px){
+      .wrap{padding:12px 10px 30px}
+      .entry{grid-template-columns:1fr;gap:8px}
+      .entry-actions{width:100%}
+      .btn-del,.btn-edit{flex:1}
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <section class="hero">
-      <div class="brand">
-        <img src="logo.png" alt="Logo Mafatihul Akhyar">
-        <div>
-          <div class="eyebrow">Panel Pengelola</div>
-          <h1>Admin Doa</h1>
+<div class="wrap">
+
+  <section class="hero">
+    <div class="brand">
+      <img src="logo.png" alt="Logo">
+      <div>
+        <div class="eyebrow">Panel Pengelola</div>
+        <h1>Admin Doa &amp; Wirid</h1>
+      </div>
+    </div>
+    <p class="desc">Tambah, lihat, dan hapus bacaan. Data disimpan langsung ke <code>data.json</code>.</p>
+    <div class="nav"><a href="index.html">&#8592; Beranda</a></div>
+  </section>
+
+  <div class="card">
+    <h2>&#x2795; Tambah Bacaan Baru</h2>
+    <form id="addForm">
+      <div class="field">
+        <label for="fId">ID unik &mdash; huruf, angka, tanda-hubung (contoh: doa-pagi)</label>
+        <input id="fId" name="id" placeholder="doa-pagi" autocomplete="off" required>
+      </div>
+      <div class="field">
+        <label for="fJudul">Judul</label>
+        <input id="fJudul" name="judul" placeholder="Doa Pagi" required>
+      </div>
+      <div class="field">
+        <label>Kategori <small>(klik chip untuk pilih, atau ketik nama baru)</small></label>
+        <div class="kat-wrap">
+          <div class="kat-chips" id="fKatChips"></div>
+          <input class="kat-input" id="fKat" name="kategori" placeholder="Pilih di atas atau ketik kategori baru, pisahkan koma" autocomplete="off">
+          <div class="kat-hint">Beberapa kategori dipisahkan koma &mdash; contoh: Doa Harian, Wirid</div>
         </div>
       </div>
-      <p>Gunakan halaman ini untuk menambah data doa baru dengan tampilan yang lebih nyaman saat dibuka di HP.</p>
-      <div class="nav">
-        <a href="index.html">← Kembali ke Beranda</a>
+      <div class="field">
+        <label for="fArab">Teks Arab / Bacaan</label>
+        <textarea id="fArab" name="arab" class="arabic-input" placeholder="&#1575;&#1603;&#1578;&#1576; &#1575;&#1604;&#1606;&#1589; &#1607;&#1606;&#1575;..." required></textarea>
       </div>
-    </section>
+      <button class="btn-add" type="submit">Simpan ke data.json</button>
+      <div id="addMsg" aria-live="polite"></div>
+    </form>
+  </div>
 
-    <div class="card">
-      <form id="f">
-        <label class="field">
-          <span>ID unik</span>
-          <input name="id" placeholder="mis. doa-pembuka" required>
-        </label>
-        <label class="field">
-          <span>Judul</span>
-          <input name="judul" placeholder="Judul doa" required>
-        </label>
-        <label class="field">
-          <span>Kategori</span>
-          <input name="kategori" placeholder="opsional, pisahkan dengan koma">
-        </label>
-        <label class="field">
-          <span>Teks doa / wirid</span>
-          <textarea name="arab" placeholder="Tulis isi doa di sini..." required></textarea>
-        </label>
-        <label class="field">
-          <span>API KEY</span>
-          <input name="key" placeholder="Masukkan API KEY" required>
-        </label>
-        <button type="submit">Tambah Doa</button>
-        <div id="msg" aria-live="polite"></div>
-      </form>
+  <div class="card">
+    <div class="list-header">
+      <h2>&#x1F4CB; Semua Entri</h2>
+      <span class="count-badge" id="countBadge">0 entri</span>
+    </div>
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/></svg>
+      <input id="searchInput" placeholder="Cari judul atau ID..." autocomplete="off">
+    </div>
+    <div id="entryList">
+      <div class="spinner-wrap"><div class="spinner"></div></div>
     </div>
   </div>
 
-  <script>
-    const API = 'https://script.google.com/macros/s/AKfycbxl6VFT-C4sPe3V3wnfLOeuad55-jvCk08w4mAfMPrdIwogUNn5T-XL4ChZbBtEbxeKTQ/exec';
+</div>
 
-    document.getElementById('f').onsubmit = async (e)=>{
-      e.preventDefault();
-      const form = e.target;
-      const msg = document.getElementById('msg');
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const fd = new FormData(form);
-      const payload = Object.fromEntries(fd.entries());
-      payload.action = 'add';
+<!-- Modal Edit -->
+<div class="modal-shade" id="editShade"></div>
+<div class="modal-box">
+  <div class="modal-inner">
+    <div class="modal-head">
+      <h3>&#x270F;&#xFE0F; Edit Entri</h3>
+      <button class="modal-close" id="editClose">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>ID <small style="color:var(--accent)">(tidak bisa diubah)</small></label>
+        <input id="eId" readonly style="opacity:.6;cursor:not-allowed">
+      </div>
+      <div class="field">
+        <label for="eJudul">Judul</label>
+        <input id="eJudul" placeholder="Judul" required>
+      </div>
+      <div class="field">
+        <label>Kategori <small>(klik chip untuk pilih, atau ketik nama baru)</small></label>
+        <div class="kat-wrap">
+          <div class="kat-chips" id="eKatChips"></div>
+          <input class="kat-input" id="eKat" placeholder="Pilih di atas atau ketik kategori baru, pisahkan koma" autocomplete="off">
+          <div class="kat-hint">Beberapa kategori dipisahkan koma &mdash; contoh: Doa Harian, Wirid</div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="eArab">Teks Arab / Bacaan</label>
+        <textarea id="eArab" class="arabic-input" style="min-height:220px" required></textarea>
+      </div>
+      <div id="editMsg" aria-live="polite"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-cancel" id="editCancel">Batal</button>
+      <button class="btn-save" id="editSave">Simpan Perubahan</button>
+    </div>
+  </div>
+</div>
 
-      msg.className = '';
-      msg.textContent = 'Menyimpan data...';
-      submitBtn.disabled = true;
+<div class="toast" id="toast"></div>
 
-      try {
-        const r = await fetch(API, {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify(payload)
-        });
+<script>
+  const API = './data-api.php';
+  let allEntries = [];
+  let toastTimer;
 
-        const j = await r.json();
-        if(!r.ok || !j.ok) throw new Error(j.error || 'Permintaan gagal');
+  /* ─── Kategori helpers ───────────────────────────────────────────────── */
+  function getUniqueCats() {
+    const set = new Set();
+    allEntries.forEach(d => {
+      (d.kategori || '').split(',').map(s => s.trim()).filter(Boolean).forEach(c => set.add(c));
+    });
+    return [...set].sort((a, b) => a.localeCompare(b, 'id'));
+  }
 
-        msg.className = 'ok';
-        msg.textContent = 'Berhasil ditambah.';
-        form.reset();
-      } catch (err) {
-        msg.className = 'err';
-        msg.textContent = 'Gagal: ' + (err.message || 'Terjadi kesalahan');
-      } finally {
-        submitBtn.disabled = false;
+  function buildKatPicker(chipsId, inputId) {
+    const chipsEl = document.getElementById(chipsId);
+    const inputEl = document.getElementById(inputId);
+    if (!chipsEl || !inputEl) return;
+
+    const allCats = getUniqueCats();
+
+    function getSelected() {
+      return inputEl.value.split(',').map(s => s.trim()).filter(Boolean);
+    }
+
+    function render() {
+      const sel = getSelected();
+      chipsEl.innerHTML = '';
+      allCats.forEach(cat => {
+        const chip = document.createElement('span');
+        chip.className = 'kat-chip' + (sel.includes(cat) ? ' on' : '');
+        chip.textContent = cat;
+        chip.onclick = () => {
+          let cur = getSelected();
+          if (cur.includes(cat)) {
+            cur = cur.filter(c => c !== cat);
+          } else {
+            cur.push(cat);
+          }
+          inputEl.value = cur.join(', ');
+          render();
+        };
+        chipsEl.appendChild(chip);
+      });
+    }
+
+    render();
+    // Sync chip highlight saat user mengetik manual
+    inputEl.addEventListener('input', render);
+  }
+
+  function toast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+  }
+
+  function esc(str) {
+    return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function renderList(entries) {
+    const container = document.getElementById('entryList');
+    document.getElementById('countBadge').textContent = allEntries.length + ' entri';
+    if (!entries.length) {
+      container.innerHTML = '<div class="empty-state">Tidak ada entri.</div>';
+      return;
+    }
+    container.innerHTML = '';
+    const grid = document.createElement('div');
+    grid.className = 'entry-list';
+    entries.forEach(d => {
+      const row = document.createElement('div');
+      row.className = 'entry';
+      const cats = (d.kategori || '').split(',').map(s => s.trim()).filter(Boolean);
+      const catHtml = cats.map(c => '<span class="cat">' + esc(c) + '</span>').join('');
+      row.innerHTML =
+        '<div class="entry-info">' +
+          '<div class="entry-title">' + esc(d.judul || '(Tanpa judul)') + '</div>' +
+          '<div class="entry-meta">ID: <code>' + esc(d.id) + '</code>' +
+            (catHtml ? '<br>' + catHtml : '') +
+          '</div>' +
+        '</div>' +
+        '<div class="entry-actions">' +
+          '<button class="btn-edit">&#x270F; Edit</button>' +
+          '<button class="btn-del">&#x1F5D1; Hapus</button>' +
+        '</div>';
+      row.querySelector('.btn-edit').onclick = () => openEditModal(d);
+      row.querySelector('.btn-del').onclick = () => deleteEntry(d.id, row);
+      grid.appendChild(row);
+    });
+    container.appendChild(grid);
+  }
+
+  function filterAndRender() {
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    const filtered = q
+      ? allEntries.filter(d => String(d.judul || '').toLowerCase().includes(q) || String(d.id || '').toLowerCase().includes(q))
+      : allEntries;
+    renderList(filtered);
+  }
+
+  async function loadEntries() {
+    try {
+      const r = await fetch(API + '?v=' + Date.now());
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const j = await r.json();
+      allEntries = Array.isArray(j.data) ? j.data : [];
+      filterAndRender();
+      buildKatPicker('fKatChips', 'fKat');
+      buildKatPicker('eKatChips', 'eKat');
+    } catch (e) {
+      document.getElementById('entryList').innerHTML =
+        '<div class="empty-state">Gagal memuat data. Pastikan data-api.php tersedia di server.</div>';
+    }
+  }
+
+  document.getElementById('addForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('button[type="submit"]');
+    const msg = document.getElementById('addMsg');
+    const fd = new FormData(form);
+    const payload = Object.assign({ action: 'add' }, Object.fromEntries(fd.entries()));
+    msg.className = '';
+    msg.textContent = 'Menyimpan...';
+    btn.disabled = true;
+    try {
+      const r = await fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.error || 'Gagal');
+      msg.className = 'ok';
+      msg.textContent = 'Berhasil ditambah!';
+      form.reset();
+      await loadEntries();
+      buildKatPicker('fKatChips', 'fKat');
+      toast('Entri baru berhasil ditambah');
+    } catch (err) {
+      msg.className = 'err';
+      msg.textContent = 'Gagal: ' + (err.message || 'Terjadi kesalahan');
+    } finally {
+      btn.disabled = false;
+    }
+  };
+
+  async function deleteEntry(id, rowEl) {
+    if (!confirm('Hapus entri "' + id + '"?\nTindakan ini tidak dapat dibatalkan.')) return;
+    const btn = rowEl.querySelector('.btn-del');
+    btn.disabled = true;
+    btn.textContent = '...';
+    try {
+      const r = await fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete', id: id })
+      });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.error || 'Gagal');
+      allEntries = allEntries.filter(d => d.id !== id);
+      filterAndRender();
+      toast('Entri "' + id + '" berhasil dihapus.');
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Hapus';
+      toast('Gagal menghapus: ' + err.message);
+    }
+  }
+
+  /* ─── Modal Edit ──────────────────────────────────────────────────────── */
+  const editShade  = document.getElementById('editShade');
+  const editClose  = document.getElementById('editClose');
+  const editCancel = document.getElementById('editCancel');
+  const editSave   = document.getElementById('editSave');
+  const editMsg    = document.getElementById('editMsg');
+  let editingId    = null;
+
+  function openEditModal(d) {
+    editingId = d.id;
+    document.getElementById('eId').value    = d.id;
+    document.getElementById('eJudul').value = d.judul || '';
+    document.getElementById('eKat').value   = d.kategori || '';
+    document.getElementById('eArab').value  = d.arab || '';
+    editMsg.textContent = '';
+    editMsg.className = '';
+    buildKatPicker('eKatChips', 'eKat');
+    editShade.classList.add('show');
+  }
+
+  function closeEditModal() {
+    editShade.classList.remove('show');
+    editingId = null;
+  }
+
+  editClose.onclick = closeEditModal;
+  editCancel.onclick = closeEditModal;
+  editShade.addEventListener('click', (e) => { if (e.target === editShade) closeEditModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeEditModal(); });
+
+  editSave.onclick = async () => {
+    const judul    = document.getElementById('eJudul').value.trim();
+    const kategori = document.getElementById('eKat').value.trim();
+    const arab     = document.getElementById('eArab').value.trim();
+
+    if (!judul || !arab) {
+      editMsg.className = 'err';
+      editMsg.textContent = 'Judul dan teks doa tidak boleh kosong.';
+      return;
+    }
+
+    editMsg.className = '';
+    editMsg.textContent = 'Menyimpan...';
+    editSave.disabled = true;
+
+    try {
+      const r = await fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'update', id: editingId, judul, kategori, arab })
+      });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.error || 'Gagal');
+
+      // update lokal tanpa reload
+      const idx = allEntries.findIndex(d => d.id === editingId);
+      if (idx !== -1) {
+        allEntries[idx] = { ...allEntries[idx], judul, kategori, arab };
       }
-    };
-  </script>
+      filterAndRender();
+      buildKatPicker('fKatChips', 'fKat');
+      toast('Entri "' + editingId + '" berhasil diupdate.');
+      closeEditModal();
+    } catch (err) {
+      editMsg.className = 'err';
+      editMsg.textContent = 'Gagal: ' + err.message;
+    } finally {
+      editSave.disabled = false;
+    }
+  };
+
+  document.getElementById('searchInput').addEventListener('input', filterAndRender);
+  loadEntries();
+</script>
 </body>
 </html>

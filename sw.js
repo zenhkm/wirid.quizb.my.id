@@ -1,5 +1,5 @@
-const APP_CACHE = 'mafatihul-akhyar-app-v9';
-const RUNTIME = 'mafatihul-akhyar-rt-v9';
+const APP_CACHE = 'mafatihul-akhyar-app-v10';
+const RUNTIME = 'mafatihul-akhyar-rt-v10';
 
 const PRECACHE_URLS = [
   './',
@@ -10,7 +10,8 @@ const PRECACHE_URLS = [
   './contact.html',
   './saran.html',
   './offline.html',
-  './logo.png'
+  './logo.png',
+  './data.json'
 ];
 
 self.addEventListener('install', (event) => {
