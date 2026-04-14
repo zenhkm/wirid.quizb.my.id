@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="id" dir="auto">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Download - Mafatihul Akhyar</title>
+  <meta name="theme-color" content="#050a18" />
+  <meta name="description" content="Download aplikasi Buku Wirid Mafatihul Akhyar di Google Play Store. Baca wirid, doa, dan dzikir langsung dari HP Anda." />
+  <link rel="icon" href="logo.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#050a18;--panel:#0a1128;--card:rgba(15,23,50,.65);--text:#e8edf5;--muted:#8b9dc3;--accent:#10b981;--border:rgba(255,255,255,.08);--surface:rgba(255,255,255,.04);--glow:#10b98120;--transition:all .25s cubic-bezier(.4,0,.2,1)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{min-height:100vh;background:var(--bg);color:var(--text);font:16px/1.75 'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+    body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(16,185,129,.15) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 85% 20%, rgba(59,130,246,.08) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 35% at 15% 70%, rgba(139,92,246,.05) 0%, transparent 50%);
+    }
+    a{color:#6ee7b7;text-decoration:none;transition:var(--transition)}
+    a:hover{color:#a7f3d0}
+
+    .wrap{max-width:720px;margin:auto;padding:20px 16px 40px;position:relative;z-index:1}
+
+    /* Hero Section */
+    .hero{
+      padding:32px 24px;border:1px solid var(--border);border-radius:24px;
+      background:var(--card);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+      margin-bottom:16px;text-align:center;
+      animation:fadeUp .5s both;
+    }
+    .hero-logo{
+      width:96px;height:96px;border-radius:24px;object-fit:contain;
+      box-shadow:0 8px 40px rgba(16,185,129,.2),0 0 0 1px rgba(255,255,255,.06);
+      margin-bottom:16px;
+      animation:logoFloat 3s ease-in-out infinite;
+    }
+    @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    .hero-eyebrow{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+    .hero h1{font-size:clamp(26px,6vw,36px);font-weight:900;letter-spacing:-.03em;line-height:1.15;margin-bottom:8px}
+    .hero h1 span{background:linear-gradient(135deg,#10b981,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-desc{color:var(--muted);font-size:15px;max-width:480px;margin:0 auto 24px}
+
+    /* Play Store Button */
+    .playstore-btn{
+      display:inline-flex;align-items:center;gap:14px;
+      padding:14px 28px;border-radius:16px;
+      background:linear-gradient(135deg,#10b981,#059669);
+      color:#fff;font-weight:700;font-size:16px;
+      box-shadow:0 8px 32px rgba(16,185,129,.3),0 2px 8px rgba(0,0,0,.2);
+      transition:var(--transition);
+      text-decoration:none;
+      position:relative;overflow:hidden;
+    }
+    .playstore-btn::before{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+      opacity:0;transition:.3s;
+    }
+    .playstore-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(16,185,129,.4),0 4px 12px rgba(0,0,0,.2);color:#fff}
+    .playstore-btn:hover::before{opacity:1}
+    .playstore-btn:active{transform:translateY(0) scale(.98)}
+    .playstore-btn svg{width:28px;height:28px;flex-shrink:0}
+    .playstore-text{text-align:left}
+    .playstore-text small{display:block;font-size:11px;font-weight:500;opacity:.85;margin-bottom:1px}
+    .playstore-text strong{display:block;font-size:17px;letter-spacing:-.01em}
+
+    /* Nav */
+    .nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px}
+    .nav a{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:9px 16px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-weight:600;font-size:14px;transition:var(--transition)}
+    .nav a:hover{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:var(--text)}
+
+    /* Features Section */
+    .section-title{font-size:20px;font-weight:800;letter-spacing:-.02em;text-align:center;margin-bottom:16px}
+    .features{
+      border:1px solid var(--border);border-radius:20px;
+      background:var(--card);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      padding:24px;margin-bottom:16px;
+      animation:fadeUp .5s .15s both;
+    }
+    .feature-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+    .feat{
+      padding:18px;border:1px solid var(--border);border-radius:16px;background:var(--surface);
+      transition:var(--transition);position:relative;overflow:hidden;
+    }
+    .feat::before{
+      content:'';position:absolute;top:0;left:0;right:0;height:2px;
+      background:linear-gradient(90deg,var(--accent),#3b82f6);
+      opacity:0;transition:.3s;
+    }
+    .feat:hover{border-color:rgba(16,185,129,.25);background:rgba(16,185,129,.04)}
+    .feat:hover::before{opacity:1}
+    .feat-icon{font-size:28px;margin-bottom:8px}
+    .feat-title{font-weight:700;font-size:15px;margin-bottom:4px}
+    .feat-desc{font-size:13px;color:var(--muted);line-height:1.55}
+
+    /* Steps Section */
+    .steps{
+      border:1px solid var(--border);border-radius:20px;
+      background:var(--card);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      padding:24px;margin-bottom:16px;
+      animation:fadeUp .5s .25s both;
+    }
+    .step-list{display:grid;gap:12px;counter-reset:step}
+    .step{
+      counter-increment:step;
+      display:flex;align-items:flex-start;gap:14px;
+      padding:16px;border:1px solid var(--border);border-radius:14px;background:var(--surface);
+      transition:var(--transition);
+    }
+    .step:hover{border-color:rgba(16,185,129,.2);background:rgba(16,185,129,.04)}
+    .step-num{
+      flex-shrink:0;width:36px;height:36px;
+      display:grid;place-items:center;
+      background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);
+      border-radius:10px;font-weight:800;font-size:15px;color:var(--accent);
+    }
+    .step-num::before{content:counter(step)}
+    .step-content{min-width:0}
+    .step-title{font-weight:700;font-size:14px;margin-bottom:2px}
+    .step-desc{font-size:13px;color:var(--muted)}
+
+    /* CTA Bottom */
+    .cta-bottom{
+      border:1px solid rgba(16,185,129,.2);border-radius:20px;
+      background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(59,130,246,.04));
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      padding:28px 24px;text-align:center;
+      animation:fadeUp .5s .35s both;
+    }
+    .cta-bottom h2{font-size:20px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+    .cta-bottom p{color:var(--muted);font-size:14px;margin-bottom:16px}
+
+    /* QR Code area */
+    .qr-area{
+      display:inline-flex;flex-direction:column;align-items:center;gap:8px;
+      padding:16px;border:1px solid var(--border);border-radius:14px;background:var(--surface);
+      margin:16px auto 0;
+    }
+    .qr-area canvas{border-radius:8px}
+    .qr-label{font-size:12px;color:var(--muted)}
+
+    footer{text-align:center;color:var(--muted);padding:16px 12px 28px;font-size:13px;opacity:.6}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    @media(max-width:560px){
+      .wrap{padding:14px 12px 32px}
+      .hero{padding:24px 18px}
+      .hero-logo{width:80px;height:80px;border-radius:20px}
+      .playstore-btn{padding:12px 22px;font-size:15px}
+      .nav a{flex:1 1 calc(50% - 4px)}
+      .features,.steps,.cta-bottom{padding:18px}
+      .feature-list{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Hero -->
+    <section class="hero">
+      <img class="hero-logo" src="logo.png" alt="Logo Mafatihul Akhyar">
+      <div class="hero-eyebrow">Aplikasi Android</div>
+      <h1>Download <span>Buku Wirid</span></h1>
+      <p class="hero-desc">Baca wirid, doa, dan dzikir langsung dari HP Anda. Gratis, ringan, dan bisa digunakan offline.</p>
+
+      <a class="playstore-btn" href="https://play.google.com/store/apps/details?id=id.quizb.bukuwirid" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302c.6.348.6 1.032 0 1.38l-2.302 2.302-2.533-2.993 2.533-2.991zM5.864 2.658L16.8 9.283l-2.302 2.302L5.864 2.658z"/></svg>
+        <div class="playstore-text">
+          <small>DOWNLOAD DI</small>
+          <strong>Google Play</strong>
+        </div>
+      </a>
+
+      <nav class="nav">
+        <a href="index.html">🏠 Beranda</a>
+        <a href="tentang.html">ℹ️ Tentang</a>
+        <a href="contact.html">✉️ Contact</a>
+        <a href="saran.html">💡 Saran</a>
+      </nav>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+      <h2 class="section-title">Kenapa Pakai Aplikasi?</h2>
+      <div class="feature-list">
+        <div class="feat">
+          <div class="feat-icon">⚡</div>
+          <div class="feat-title">Cepat & Ringan</div>
+          <div class="feat-desc">Ukuran kecil, loading instan. Tidak boros memori dan baterai.</div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">📴</div>
+          <div class="feat-title">Akses Offline</div>
+          <div class="feat-desc">Baca wirid kapan saja tanpa koneksi internet.</div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🔍</div>
+          <div class="feat-title">Pencarian Instan</div>
+          <div class="feat-desc">Cari doa dan wirid berdasarkan judul atau isi teks Arab.</div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">📌</div>
+          <div class="feat-title">Penanda Posisi</div>
+          <div class="feat-desc">Simpan posisi terakhir membaca dan lanjutkan kapan saja.</div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🔖</div>
+          <div class="feat-title">Bookmark</div>
+          <div class="feat-desc">Tandai bacaan favorit agar mudah diakses kembali.</div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🌙</div>
+          <div class="feat-title">Mode Gelap</div>
+          <div class="feat-desc">Nyaman dibaca saat malam hari dengan tema gelap modern.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Steps -->
+    <section class="steps">
+      <h2 class="section-title">Cara Download</h2>
+      <div class="step-list">
+        <div class="step">
+          <div class="step-num"></div>
+          <div class="step-content">
+            <div class="step-title">Buka Google Play Store</div>
+            <div class="step-desc">Tekan tombol "Download di Google Play" di atas atau buka Play Store di HP Anda.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num"></div>
+          <div class="step-content">
+            <div class="step-title">Cari "Buku Wirid"</div>
+            <div class="step-desc">Ketik "Buku Wirid" atau "Mafatihul Akhyar" di kolom pencarian Play Store.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num"></div>
+          <div class="step-content">
+            <div class="step-title">Instal & Buka</div>
+            <div class="step-desc">Tekan "Instal", tunggu selesai, lalu buka aplikasi. Selamat membaca!</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Bottom -->
+    <section class="cta-bottom">
+      <h2>Mulai Baca Wirid Sekarang</h2>
+      <p>Download gratis dari Google Play Store dan nikmati kemudahan membaca wirid di HP Anda.</p>
+      <a class="playstore-btn" href="https://play.google.com/store/apps/details?id=id.quizb.bukuwirid" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302c.6.348.6 1.032 0 1.38l-2.302 2.302-2.533-2.993 2.533-2.991zM5.864 2.658L16.8 9.283l-2.302 2.302L5.864 2.658z"/></svg>
+        <div class="playstore-text">
+          <small>DOWNLOAD DI</small>
+          <strong>Google Play</strong>
+        </div>
+      </a>
+    </section>
+  </div>
+
+  <footer>© Mafatihul Akhyar · <a href="privasi.html">Kebijakan Privasi</a></footer>
+</body>
+</html>

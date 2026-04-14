@@ -1,5 +1,5 @@
-const APP_CACHE = 'mafatihul-akhyar-app-v10';
-const RUNTIME = 'mafatihul-akhyar-rt-v10';
+const APP_CACHE = 'mafatihul-akhyar-app-v11';
+const RUNTIME = 'mafatihul-akhyar-rt-v11';
 
 const PRECACHE_URLS = [
   './',
@@ -9,6 +9,7 @@ const PRECACHE_URLS = [
   './tentang.html',
   './contact.html',
   './saran.html',
+  './download.html',
   './offline.html',
   './logo.png',
   './data.json'
